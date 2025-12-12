@@ -1,13 +1,14 @@
-import express from 'express';
+import express from "express";
+import productsRouter from "./src/routes/products.router.js";
 
 const app = express();
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send("Hola Node.js");
+app.use("/api", productsRouter);
+
+app.use((req, res, next) => {
+  res.status(404).json({ error: "No encontrado" });
 });
-
-import productsRouter from "./src/routes/products.router.js";
-app.use("/api/products" , productsRouter);
 
 const PORT = 3000;
 
